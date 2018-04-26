@@ -1,0 +1,67 @@
+<style lang="less">
+.container {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  box-sizing: border-box;
+}
+</style>
+
+<script>
+import wepy from 'wepy'
+import 'wepy-async-function'
+
+
+export default class extends wepy.app {
+  config = {
+    pages: [
+      'pages/index'
+    ],
+    window: {
+      backgroundTextStyle: 'light',
+      navigationBarBackgroundColor: '#fff',
+      navigationBarTitleText: 'WeChat',
+      navigationBarTextStyle: 'black'
+    }
+  }
+
+  globalData = {
+    userInfo: null
+  }
+  
+  api = {
+    api :'aip1',
+    api2:'apis'
+  }
+
+  constructor () {
+    super()
+  }
+   
+  async function test() {
+    return 'hello assync'
+  }
+
+
+ 
+
+  onLaunch() {
+     
+  }
+  ysh (cb) {
+     let result = test();
+    console.log(result)
+    this.sleep(3)
+    cb('2018')
+  }
+  sleep (s) {
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        resolve('promise resolved')
+      }, s * 1000)
+    })
+  }
+}
+</script>
