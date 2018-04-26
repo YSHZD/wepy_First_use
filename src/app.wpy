@@ -6,6 +6,7 @@
   align-items: center;
   justify-content: space-between;
   box-sizing: border-box;
+  background:pink;
 }
 </style>
 
@@ -30,37 +31,40 @@ export default class extends wepy.app {
   globalData = {
     userInfo: null
   }
-  
-  api = {
-    api :'aip1',
-    api2:'apis'
-  }
 
   constructor () {
     super()
+   this.use('requestfix')
+   this.use('promisify')
   }
-   
-  async function test() {
-    return 'hello assync'
-  }
-
-
- 
 
   onLaunch() {
-     
+    this.testAsync()
   }
-  ysh (cb) {
-     let result = test();
-    console.log(result)
-    this.sleep(3)
-    cb('2018')
-  }
+
   sleep (s) {
     return new Promise((resolve, reject) => {
       setTimeout(() => {
         resolve('promise resolved')
       }, s * 1000)
+    })
+  }
+
+  async testAsync () {
+    const data = await this.sleep(3)
+    console.log(data)
+  }
+
+  getUserInfo(cb) {
+    const that = this
+    if (this.globalData.userInfo) {
+      return this.globalData.userInfo
+    }
+    wepy.getUserInfo({
+      success (res) {
+        that.globalData.userInfo = res.userInfo
+        cb && cb(res.userInfo)
+      }
     })
   }
 }

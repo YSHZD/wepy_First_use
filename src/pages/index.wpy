@@ -225,11 +225,19 @@
       // }
     }
 
-    onLoad() {
-      this.$parent.ysh(function(data){
-        console.log(data)
-   })
-      console.log(this.$parent.api)
+    async onLoad() {
+        console.log(this.$root)
+        await (function(){
+             console.log('wolaole')
+        })()
+
+        await (function getInfo(){
+          console.log('sx')
+        })()
+   //    this.$parent.ysh(function(data){
+   //      console.log(data)
+   // })
+   //    console.log(this.$parent.api)
      /*       return false;
       let self = this
       this.$parent.getUserInfo(function (userInfo) {
